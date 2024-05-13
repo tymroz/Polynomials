@@ -41,13 +41,13 @@ void printPolynomial(Polynomial& poly) {
     std::cout << std::endl;
 }
 
-Polynomial iloczyn(Polynomial a, Polynomial b) {
+Polynomial multiplyPolynomials(Polynomial a, Polynomial b) {
     Polynomial result;
-    result.coefficients.resize(a.coefficients.size() + b.coefficients.size() - 1, 0); // Określenie stopnia wielomianu wynikowego
+    result.coefficients.resize(a.coefficients.size() + b.coefficients.size() - 1, 0);
     
     for (int i = 0; i < a.coefficients.size(); ++i) {
         for (int j = 0; j < b.coefficients.size(); ++j) {
-            result.coefficients[i + j] += a.coefficients[i] * b.coefficients[j]; // Mnożenie i dodawanie do współczynnika odpowiedniej potęgi
+            result.coefficients[i + j] += a.coefficients[i] * b.coefficients[j];
         }
     }
     
@@ -66,7 +66,7 @@ Polynomial NWD(Polynomial a, Polynomial b){
 
 Polynomial NWW(Polynomial a, Polynomial b){
     Polynomial nwd = NWD(a, b);
-    Polynomial m = iloczyn(a, b);
+    Polynomial m = multiplyPolynomials(a, b);
 
     auto divisionResult = dividePolynomials(m, nwd);
 
