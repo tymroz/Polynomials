@@ -62,24 +62,6 @@ Polynomial iloczyn(Polynomial a, Polynomial b) {
     return result;
 }
 
-Polynomial NWD(Polynomial a, Polynomial b){
-    auto divisionResult = dividePolynomials(a, b);
-    if (divisionResult.second.coefficients.empty()) {
-        return b;
-    } else {
-        return NWD(b, divisionResult.second);
-    }
-}
-
-Polynomial NWW(Polynomial a, Polynomial b){
-    Polynomial nwd = NWD(a, b);
-    Polynomial m = iloczyn(a, b);
-
-    auto divisionResult = dividePolynomials(m, nwd);
-
-    return divisionResult.first;
-}
-
 Polynomial roznica(Polynomial a, Polynomial b){
     Polynomial result;
         size_t resultSize = std::max(a.coefficients.size(), b.coefficients.size());
@@ -103,8 +85,9 @@ Extended_GCD extendedEuclidean(Polynomial f, Polynomial g){
     result.f = f;
     result.g = g;
     while (!g.coefficients.empty()){
-        Polynomial q = dividePolynomials(f, g).first;
-        Polynomial r = dividePolynomials(f, g).second;
+        std::pair<Polynomial, Polynomial> division = dividePolynomials(f, g);
+        Polynomial q = division.first;
+        Polynomial r = division.second;
         Polynomial m = roznica(x, iloczyn(u, q));
         Polynomial n = roznica(y, iloczyn(v, q));
         f = g;
