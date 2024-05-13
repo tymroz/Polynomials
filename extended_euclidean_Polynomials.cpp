@@ -49,7 +49,7 @@ void printPolynomial(Polynomial& poly) {
     std::cout << std::endl;
 }
 
-Polynomial iloczyn(Polynomial a, Polynomial b) {
+Polynomial multiplyPolynomials(Polynomial a, Polynomial b) {
     Polynomial result;
     result.coefficients.resize(a.coefficients.size() + b.coefficients.size() - 1, 0);
     
@@ -62,7 +62,7 @@ Polynomial iloczyn(Polynomial a, Polynomial b) {
     return result;
 }
 
-Polynomial roznica(Polynomial a, Polynomial b){
+Polynomial subtractPolynomials(Polynomial a, Polynomial b){
     Polynomial result;
         size_t resultSize = std::max(a.coefficients.size(), b.coefficients.size());
         result.coefficients.resize(resultSize, 0.0);
@@ -88,8 +88,8 @@ Extended_GCD extendedEuclidean(Polynomial f, Polynomial g){
         std::pair<Polynomial, Polynomial> division = dividePolynomials(f, g);
         Polynomial q = division.first;
         Polynomial r = division.second;
-        Polynomial m = roznica(x, iloczyn(u, q));
-        Polynomial n = roznica(y, iloczyn(v, q));
+        Polynomial m = subtractPolynomials(x, multiplyPolynomials(u, q));
+        Polynomial n = subtractPolynomials(y, multiplyPolynomials(v, q));
         f = g;
         g = r;
         x = v;
